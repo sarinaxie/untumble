@@ -1,0 +1,22 @@
+{
+  "name": "untumble",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sarinaxie/untumble.git"
+  },
+  "author": "Sarina Xie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sarinaxie/untumble/issues"
+  },
+  "homepage": "https://github.com/sarinaxie/untumble#readme",
+  "dependencies": {
+    "tumblr.js": "^1.1.1"
+  }
+}
