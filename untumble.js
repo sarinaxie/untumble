@@ -1,11 +1,7 @@
-// Authenticate via OAuth
+// Authenticate via OAuth - fill in your credentials here
 var tumblr = require('tumblr.js');
-var client = tumblr.createClient({
-  consumer_key: 'opP94wlM6ynKYTraxEBPe2NIAWsOIYoKkmHWpd92ShkIwtTLJZ',
-  consumer_secret: 'oLfuN18xwHoqXwUL1tQI9PVgHdpnNmrtHPfSv5HDSgtB7CxSJX',
-  token: 'ueNB27z7f8hz7EaIMdmNUYVtzQawTiIopFBOnM6UdujMa9cnWw',
-  token_secret: 'xuTGG4A0GjiJEGcoBzbFx6JKOmFJHCRPeyjQ60AbFibLoxlyp9'
-});
+var settings = require('./env.json');
+var client = tumblr.createClient(settings);
 
 function getLikes(limit, offset) {
 	// Make the request to Tumblr
@@ -17,7 +13,7 @@ function getLikes(limit, offset) {
 		// Print post number
 		console.log('<br>' + offset + '<br>');
 	
-		// Get the post data I want
+		// Get post data
 		posts = data.liked_posts;
 		posts.forEach(function (post) {
 			// Most liked posts are photo or link posts where the "photos" are art -> display the art
