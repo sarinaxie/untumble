@@ -15,33 +15,39 @@ function getLikes(limit, offset) {
 			return;
 		}
 		// Print post number
-		console.log('$' + offset + '$');
+		console.log('<br>' + offset + '<br>');
 	
 		// Get the post data I want
 		posts = data.liked_posts;
 		posts.forEach(function (post) {
-			console.log('<a href="' + post.post_url + '">---</a>');
-			if (post.type === 'photo') {
+			// Most liked posts are photo or link posts where the "photos" are art -> display the art
+			if (post.type === 'photo' || post.type === 'link') {
 				post.photos.forEach(function (photo) {
 					thumbURL = '';
 					for (i = 0; i < photo.alt_sizes.length; i++) {
-						if (photo.alt_sizes[i].width == 250) {
+						if (photo.alt_sizes[i].width <= 250) {
 							thumbURL = photo.alt_sizes[i].url;
 							break;
 						}
 					}
-					console.log('<a href="' + photo.original_size.url + '"><img src="' + thumbURL + '"></a>');
+					console.log('<a href="' + post.post_url + '"><img src="' + thumbURL + '"></a>');
+					console.log('<a href="' + photo.original_size.url + '">X</a>');
 				});
 			}
+			// For other posts just link to the post
+			else {
+				console.log('<a href="' + post.post_url + '">' + post.type + '</a>');
+			}
 		});
-		console.log('<br>' + '<textarea></textarea>'.repeat(limit));
+		// Makes some textareas to write notes in
+		console.log('<br>' + '<textarea cols="30"></textarea> '.repeat(limit) + '<br>');
 	});
 }
 
-// Hardcoded number of likes
-numLikes = 8;
-// Using the limit variable for now before I switch to using the default max
-limit = 2;
+// Hardcoded number of likes (the max)
+numLikes = 1000;
+// Set limit to 5 because that's how many images fit in a row on my laptop
+limit = 5;
 for (offset = 1; offset <= numLikes; offset+=limit) {
 	getLikes(limit, offset);
 }
