@@ -8,16 +8,24 @@ var client = tumblr.createClient({
 });
 
 function getLikes(after) {
-// Make the request
-client.userLikes({limit: 1}, function (err, data) {
-	if (err) {
-		console.log('err' + err);
-		return;
-	}
-	console.log('like count: ' + data.liked_count);
-	posts = data.liked_posts;
-	console.log('post image url: ' + posts[0].post_url);
-});
+	// Make the request
+	client.userLikes({limit: 5, after: after}, function (err, data) {
+		if (err) {
+			console.log('err' + err);
+			return;
+		}
+		console.log('like count: ' + data.liked_count);
+		posts = data.liked_posts;
+		posts.forEach(function (post) {
+			console.log('timestamp: ' + post.timestamp);
+			console.log('post url: ' + post.post_url);
+			if (post.type === 'photo') {
+				post.photos.forEach(function (photo) {
+					console.log('post image url: ' + photo.original_size.url);
+				});
+			}
+		});
+	});
 }
 
 getLikes(0);
