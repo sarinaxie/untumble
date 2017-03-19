@@ -7,25 +7,41 @@ var client = tumblr.createClient({
   token_secret: 'xuTGG4A0GjiJEGcoBzbFx6JKOmFJHCRPeyjQ60AbFibLoxlyp9'
 });
 
-function getLikes(after) {
-	// Make the request
-	client.userLikes({limit: 5, after: after}, function (err, data) {
+function getLikes(limit, offset) {
+	// Make the request to Tumblr
+	client.userLikes({limit: limit, offset: offset}, function (err, data) {
 		if (err) {
 			console.log('err' + err);
 			return;
 		}
-		console.log('like count: ' + data.liked_count);
+		// Print post number
+		console.log('$' + offset + '$');
+	
+		// Get the post data I want
 		posts = data.liked_posts;
 		posts.forEach(function (post) {
-			console.log('timestamp: ' + post.timestamp);
-			console.log('post url: ' + post.post_url);
+			console.log('<a href="' + post.post_url + '">---</a>');
 			if (post.type === 'photo') {
 				post.photos.forEach(function (photo) {
-					console.log('post image url: ' + photo.original_size.url);
+					thumbURL = '';
+					for (i = 0; i < photo.alt_sizes.length; i++) {
+						if (photo.alt_sizes[i].width == 250) {
+							thumbURL = photo.alt_sizes[i].url;
+							break;
+						}
+					}
+					console.log('<a href="' + photo.original_size.url + '"><img src="' + thumbURL + '"></a>');
 				});
 			}
 		});
+		console.log('<br>' + '<textarea></textarea>'.repeat(limit));
 	});
 }
 
-getLikes(0);
+// Hardcoded number of likes
+numLikes = 8;
+// Using the limit variable for now before I switch to using the default max
+limit = 2;
+for (offset = 1; offset <= numLikes; offset+=limit) {
+	getLikes(limit, offset);
+}
