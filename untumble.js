@@ -1,5 +1,6 @@
-// Authenticate via OAuth - fill in your credentials here
+// Authenticate via OAuth
 var tumblr = require('tumblr.js');
+var async = require('async');
 var settings = require('./env.json');
 var client = tumblr.createClient(settings);
 
@@ -10,8 +11,8 @@ function getLikes(limit, offset) {
 			console.log('err' + err);
 			return;
 		}
-		// Print post number
-		console.log('<br>' + offset + '<br>');
+		// Print post numbers
+		console.log('<br>' + offset + ' - ' + (offset+limit-1) + '<br>');
 	
 		// Get post data
 		posts = data.liked_posts;
@@ -40,10 +41,25 @@ function getLikes(limit, offset) {
 	});
 }
 
-// Hardcoded number of likes (the max)
+
+// Can only access up to the 1000th liked post when using offset
 numLikes = 1000;
 // Set limit to 5 because that's how many images fit in a row on my laptop
 limit = 5;
-for (offset = 1; offset <= numLikes; offset+=limit) {
-	getLikes(limit, offset);
-}
+offset = 0;
+
+// Print HTML heading
+console.log('<html><body>');
+
+// Loop synchronously so that posts are printed in order
+async.whilst(
+	function() { return offset < numLikes; },
+	function(cb) {
+		getLikes(limit, offset);
+		offset = offset+limit;
+		setTimeout(function() {cb()}, 100);
+	}
+);
+
+// Print HTML ending
+setTimeout(function() { console.log('</body></html>'); }, 21111);

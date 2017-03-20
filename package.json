@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/sarinaxie/untumble#readme",
   "dependencies": {
+    "async": "^2.1.5",
     "tumblr.js": "^1.1.1"
   }
 }
