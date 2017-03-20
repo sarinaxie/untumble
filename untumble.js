@@ -4,6 +4,8 @@ var async = require('async');
 var settings = require('./env.json');
 var client = tumblr.createClient(settings);
 
+//TODO: Use before instead of offset so that I can retrieve all liked posts, not just the last 1000.
+
 function getLikes(limit, offset) {
 	// Make the request to Tumblr
 	client.userLikes({limit: limit, offset: offset}, function (err, data) {

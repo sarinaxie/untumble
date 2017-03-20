@@ -1,6 +1,6 @@
 # untumble
 
-Creates an HTML page that displays up to 1000 of your most recently liked posts gallery style.
+Creates an HTML page that displays up to 1000 of your most recently liked posts gallery style.  
 Posts may end up out of order occasionally.
 
 [Screenshot of final HTML page](http://i.imgur.com/wZpRF6X.png?1)
@@ -8,7 +8,7 @@ Posts may end up out of order occasionally.
 ## How to use
 **Requirements:** nodejs, npm
 
-Get an [OAuth key from Tumblr](www.tumblr.com/oauth/apps).
+Get an [OAuth key from Tumblr](www.tumblr.com/oauth/apps).  
 (Fill the application website and default callback URL fields with a throwaway such as localhost.me.)
 
 Run:
@@ -23,6 +23,5 @@ Run `node untumble.js >> FILENAME.html` and wait 0-22 seconds, depending on how 
 Open FILENAME.html in your browser.
 
 ### References
-https://github.com/gvn/hoardr
+https://github.com/gvn/hoardr  
 https://github.com/Dixin/CodeSnippets/tree/master/Dixin.Nodejs
-
